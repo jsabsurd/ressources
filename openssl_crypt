@@ -1,7 +1,13 @@
 lrztar /dir
 lrzuntar /dir
+-z (extreme compression, but slower)
+-l (fast compression)
 
 openssl enc -aes-256-cbc -pbkdf2 -in file -out file_enc
 openssl enc -aes-256-cbc -pbkdf2 -d -in file_enc > file
 
+openssl genrsa (-aes256) -out private_key.pem 1024
+openssl rsa -in private_key.pem -out public_key.pem -outform PEM -pubout
+openssl pkeyutl -encrypt -inkey public.pem -pubin -in file -out file_enc
+openssl pkeyutl -decrypt -inkey private.pem -in file_enc -out file_dec
 
