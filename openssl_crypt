@@ -1,0 +1,7 @@
+lrztar /dir
+lrzuntar /dir
+
+openssl enc -aes-256-cbc -pbkdf2 -in file -out file_enc
+openssl enc -aes-256-cbc -pbkdf2 -d -in file_enc > file
+
+
