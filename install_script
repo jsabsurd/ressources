@@ -1,6 +1,5 @@
 sudo pacman -Syu
-sudo pacma -S firefox git obsidian kleopatra keepassxc dosfstools curl wget feh zsh
-	xliberama? +xlib ttf-consolata xorg-xinit+xorg-server
+sudo pacma -S firefox git obsidian kleopatra keepassxc dosfstools curl wget feh zsh ttf-inconsolata xorg-server xorg-xinit libxft libxinerama
 
 clone dwm/st/dmenu
 make x3
