@@ -1,0 +1,28 @@
+sudo pacman -Syu
+sudo pacma -S firefox git obsidian kleopatra keepassxc dosfstools curl wget feh zsh
+	xliberama? +xlib ttf-consolata xorg-xinit+xorg-server
+
+clone dwm/st/dmenu
+make x3
+
+cd ~
+sudo echo "exec dwm" >> .xinitrc
+
+clone configs
+	einbetten
+
+vim curl command
+install zsh
+sudo chsh -s /usr/bin/zsh
+(zsh)
+source .zshrc
+
+reboot
+
+---------------
+
+usb stick:
+	Datenbank
+	obsidian
+vim PlugInstall
+git config files adden
