@@ -1,5 +1,5 @@
 sudo pacman -Syu
-sudo pacman -S firefox git obsidian kleopatra keepassxc dosfstools curl wget feh zsh ttf-inconsolata xorg-server xorg-xinit libxft libxinerama vim
+sudo pacman -S firefox git obsidian kleopatra keepassxc dosfstools curl wget feh zsh ttf-inconsolata xorg-server xorg-xinit libxft libxinerama vim arandr
 
 clone dwm/st/dmenu
 make x3
