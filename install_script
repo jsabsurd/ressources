@@ -1,5 +1,5 @@
 sudo pacman -Syu
-sudo pacma -S firefox git obsidian kleopatra keepassxc dosfstools curl wget feh zsh ttf-inconsolata xorg-server xorg-xinit libxft libxinerama vim
+sudo pacman -S firefox git obsidian kleopatra keepassxc dosfstools curl wget feh zsh ttf-inconsolata xorg-server xorg-xinit libxft libxinerama vim
 
 clone dwm/st/dmenu
 make x3
@@ -16,10 +16,11 @@ source .zshrc
 
 reboot
 
+[yay installieren]
 ---------------
 
+vim PlugInstall
+git config files adden
 usb stick:
 	Datenbank
 	obsidian
-vim PlugInstall
-git config files adden
