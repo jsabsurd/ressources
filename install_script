@@ -1,5 +1,5 @@
 sudo pacman -Syu
-sudo pacma -S firefox git obsidian kleopatra keepassxc dosfstools curl wget feh zsh ttf-inconsolata xorg-server xorg-xinit libxft libxinerama
+sudo pacma -S firefox git obsidian kleopatra keepassxc dosfstools curl wget feh zsh ttf-inconsolata xorg-server xorg-xinit libxft libxinerama vim
 
 clone dwm/st/dmenu
 make x3
@@ -7,13 +7,11 @@ make x3
 cd ~
 sudo echo "exec dwm" >> .xinitrc
 
-clone configs
-	einbetten
-
 vim curl command
-install zsh
-sudo chsh -s /usr/bin/zsh
-(zsh)
+zsh command
+zsh
+clone configs
+	einbetten (.vim ohne sudo kopieren, sonst PlugInstall keine Berechtigung!)
 source .zshrc
 
 reboot
