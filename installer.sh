@@ -1,5 +1,5 @@
 sudo pacman -Syu
-sudo pacman -S firefox git obsidian kleopatra keepassxc dosfstools curl wget feh zsh ttf-inconsolata xorg-server xorg-xinit libxft libxinerama vim arandr
+sudo pacman -S firefox git obsidian kleopatra keepassxc brightnessctl dosfstools curl wget feh zsh ttf-inconsolata xorg-server xorg-xinit libxft libxinerama vim arandr
 cd ~
 sudo pacman -S --needed base-devel git
 git clone https://aur.archlinux.org/yay.git
