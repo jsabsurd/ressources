@@ -1,0 +1,85 @@
+gdisk /dev/sda
+	o
+	n,1, ,+128M, ,
+	n,2, ,+128M,EF00,
+	n,3, ,+1024MB,8200,
+	n,4, , , ,
+	w
+mkfs.ext4 /dev/sda1
+mkfs.ext4 /dev/sda4
+mkswap /dev/sda3 && swapon /dev/sda3
+mkfs.vfat -F 32 /dev/sda2
+
+mkdir -p /mnt/gentoo
+mkdir -p /mnt/gentoo/boot
+mkdir -p /mnt/gentoo/boot/efi
+mount /dev/sda4 /mnt/gentoo
+mount /dev/sda1 /mnt/gentoo/boot
+mount /dev/sda2 /mnt/gentoo/boot/efi
+
+(-
+mkdir -p /mnt/gentoo/run/udev
+mount -o bind /run/udev /mnt/gentoo/run/udev
+mount --make-rslave /mnt/gentoo/run/udev
+-)
+
+cd /mnt/gentoo
+wget ...
+tar xpf stage3*
+
+cd /mnt/gentoo && cp /etc/resolv.con etc && arch-chroot -
+
+emerge-webrsync
+emerge -avuDN @world
+
+passwd
+useradd -g users -G wheel, portage, audio, video -m johnny
+passwd johnny
+
+emerge -vq vim
+vim /etc/fstab
+
+# /dev/sda1	/boot	ext4	defaults,noatime	0 2
+# /dev/sda4	/	ext4	noatime			0 1
+# /dev/sda3	none	swap	sw			0 0
+# /dev/sda2	/boot/efi vfat  noatime			1 2
+
+vim /etc/env.d/02locale
+
+# LANG="de_DE.UTF-8"
+
+vim /etc/locale.gen
+
+# de_DE.UTF-8 UTF-8
+
+locale-gen
+
+vim /etc/conf.d/hostname
+
+# HOSTNAME="gentoo"
+
+ln -sf /usr/share/zoneinfo/Europe/Berlin /etc/localtime
+
+emerge -a sys-kernel/gentoo-kernel-bin
+
+echo 'GRUB_PLATFORMS="efi-64"' >> /etc/portage/make.conf
+emerge -a sys-boot/grub
+emerge -an sys-boot/os-prober
+
+vim /etc/default/grub
+
+# GRUB_DISABLE_OS_PROBER=false
+
+cd /mnt/gentoo/boot
+grub-install --target=x86_64-efi --efi-directory=efi --removable
+grub-mkconfig -o /boot/grub/grub.cfg
+
+emerge -a net-misc/dhcpcd
+rc-update add dhcpcd default
+rc-service dhcpcd start
+
+emerge -a sys-apps/iproute2 net-wireless/wpa_supplicant net-wireless/iw net-wireless/wireless-tools
+
+exit
+umount -Rl /mnt/gentoo
+reboot
