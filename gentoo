@@ -13,7 +13,6 @@ wpa_cli
 > save_config
 > quit
 
-
 gdisk /dev/sda
 	o
 	n,1, ,+128M, ,
@@ -79,14 +78,18 @@ vim /etc/portage/make.conf
 # MAKEOPTS="-j4"
 # COMMON_FLAGS="-march=native"
 
-emerge -avq sys-kernel/gentoo-kernel-bin
-dispatch-conf
-	m
-	r
-	u
-emerge -avq sys-kernel/gentoo-kernel-bin
+mkdir -p /etc/portage/package.license
+echo "sys-kernel/linux-firmware linux-fw-redistributable" >> /etc/portage/package.license/linux-firmware
+emerge -avq sys-kernel/linux-firmware
 
-echo 'GRUB_PLATFORMS="efi-64"' >> /etc/portage/make.conf
+echo "sys-firmware/intel-microcode intel-ucode" >> /etc/portage/package.license/intel-microcode
+emerge -avq sys-firmware/intel-microcode
+
+echo "sys-kernel/installkernel dracut" >> /etc/portage/package.use/installkernel
+emerge -avq sys-kernel/installkernel sys-kernel/gentoo-kernel-bin
+
+vim /etc/portage/make.conf
+	GRUB_PLATFORMS="efi-64"
 emerge -avq sys-boot/grub
 emerge -anvq sys-boot/os-prober
 dispatch-conf
@@ -96,8 +99,7 @@ dispatch-conf
 emerge -anvq sys-boot/os-prober
 
 vim /etc/default/grub
-
-# GRUB_DISABLE_OS_PROBER=false
+	GRUB_DISABLE_OS_PROBER=false
 
 cd /boot
 grub-install --target=x86_64-efi --efi-directory=efi --removable
@@ -108,10 +110,35 @@ rc-update add dhcpcd default
 rc-service dhcpcd start
 
 emerge -avq sys-apps/iproute2 net-wireless/wpa_supplicant net-wireless/iw net-wireless/wireless-tools
+rc-update add wpa_supplicant default
+(-
+emerge -avq net-misc/networkmanager
+rc-update add NetworkManager default
+-)
 
 exit
-umount -Rl /mnt/gentoo
+cd
+umount -R /mnt/gentoo
 reboot
+
+
+vim /etc/wpa_supplicant/wpa_supplicant.conf
+	ctrl_interface=/run/wpa_supplicant
+	update_config=1
+
+wpa_supplicant -B -i interface -c /etc/wpa_supplicant/wpa_supplicant.conf
+wpa_cli
+> scan
+> add_network
+> set_network 0 ssid "MYSSID"
+> set_network 0 psk "passphrase"
+> enable_network 0
+> save_config
+> quit
+
+emerge -avq app-admin/sudo
+sudo usermod -aG sudo USERNAME
+
 
 # setup GUI (dwm) by Denshi
 https://www.youtube.com/watch?v=cNsdzIJleu8&t
