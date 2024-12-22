@@ -48,7 +48,7 @@ emerge-webrsync
 emerge -avuDN @world
 
 passwd
-useradd -g users -G wheel, portage, audio, video -m johnny
+useradd -g users -G wheel,portage,audio,video -m johnny
 passwd johnny
 
 emerge -vq vim
@@ -75,7 +75,16 @@ vim /etc/conf.d/hostname
 
 ln -sf /usr/share/zoneinfo/Europe/Berlin /etc/localtime
 
-emerge -a sys-kernel/gentoo-kernel-bin
+vim /etc/portage/make.conf
+# MAKEOPTS="-j4"
+# COMMON_FLAGS="-march=native"
+
+emerge -avq sys-kernel/gentoo-kernel-bin
+dispatch-conf
+	m
+	r
+	u
+emerge -avq sys-kernel/gentoo-kernel-bin
 
 echo 'GRUB_PLATFORMS="efi-64"' >> /etc/portage/make.conf
 emerge -a sys-boot/grub
