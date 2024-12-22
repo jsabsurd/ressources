@@ -137,9 +137,16 @@ wpa_cli
 > quit
 
 emerge -avq app-admin/sudo
-sudo usermod -aG sudo USERNAME
-
+sudo visudo
+	uncomment wheel
 
 # setup GUI (dwm) by Denshi
 https://www.youtube.com/watch?v=cNsdzIJleu8&t
 
+eselect profile list
+	search for "amd/VERSION/desktop (stable)"
+sudo eselect profile X
+sudo vim /etc/portage/make.conf
+	USE="-gnome -kde -bluetooth -cups -dvd -dvdr -cdr"
+sudo emerge -vq rust-bin
+sudo emerge -avquDN @world xorg-server dwm elogind net-misc/networkmanager sys-apps/dbus
