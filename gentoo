@@ -39,10 +39,10 @@ mount --make-rslave /mnt/gentoo/run/udev
 
 
 cd /mnt/gentoo
-wget ...
+wget ...	# OpenRC
 tar xpf stage3*
 
-cd /mnt/gentoo && cp /etc/resolv.con etc && arch-chroot -
+cd /mnt/gentoo && cp /etc/resolv.conf etc && arch-chroot -
 
 emerge-webrsync
 emerge -avuDN @world
@@ -87,22 +87,27 @@ dispatch-conf
 emerge -avq sys-kernel/gentoo-kernel-bin
 
 echo 'GRUB_PLATFORMS="efi-64"' >> /etc/portage/make.conf
-emerge -a sys-boot/grub
-emerge -an sys-boot/os-prober
+emerge -avq sys-boot/grub
+emerge -anvq sys-boot/os-prober
+dispatch-conf
+	m
+	r
+	u
+emerge -anvq sys-boot/os-prober
 
 vim /etc/default/grub
 
 # GRUB_DISABLE_OS_PROBER=false
 
-cd /mnt/gentoo/boot
+cd /boot
 grub-install --target=x86_64-efi --efi-directory=efi --removable
 grub-mkconfig -o /boot/grub/grub.cfg
 
-emerge -a net-misc/dhcpcd
+emerge -avq net-misc/dhcpcd
 rc-update add dhcpcd default
 rc-service dhcpcd start
 
-emerge -a sys-apps/iproute2 net-wireless/wpa_supplicant net-wireless/iw net-wireless/wireless-tools
+emerge -avq sys-apps/iproute2 net-wireless/wpa_supplicant net-wireless/iw net-wireless/wireless-tools
 
 exit
 umount -Rl /mnt/gentoo
