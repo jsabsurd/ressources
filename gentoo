@@ -1,3 +1,19 @@
+# Networking
+vi /etc/wpa_supplicant/wpa_supplicant.conf
+	ctrl_interface=/run/wpa_supplicant
+	update_config=1
+
+wpa_supplicant -B -i interface -c /etc/wpa_supplicant/wpa_supplicant.conf
+wpa_cli
+> scan
+> add_network
+> set_network 0 ssid "MYSSID"
+> set_network 0 psk "passphrase"
+> enable_network 0
+> save_config
+> quit
+
+
 gdisk /dev/sda
 	o
 	n,1, ,+128M, ,
@@ -11,17 +27,16 @@ mkswap /dev/sda3 && swapon /dev/sda3
 mkfs.vfat -F 32 /dev/sda2
 
 mkdir -p /mnt/gentoo
-mkdir -p /mnt/gentoo/boot
-mkdir -p /mnt/gentoo/boot/efi
 mount /dev/sda4 /mnt/gentoo
+mkdir -p /mnt/gentoo/boot
 mount /dev/sda1 /mnt/gentoo/boot
+mkdir -p /mnt/gentoo/boot/efi
 mount /dev/sda2 /mnt/gentoo/boot/efi
 
-(-
 mkdir -p /mnt/gentoo/run/udev
 mount -o bind /run/udev /mnt/gentoo/run/udev
 mount --make-rslave /mnt/gentoo/run/udev
--)
+
 
 cd /mnt/gentoo
 wget ...
@@ -83,3 +98,7 @@ emerge -a sys-apps/iproute2 net-wireless/wpa_supplicant net-wireless/iw net-wire
 exit
 umount -Rl /mnt/gentoo
 reboot
+
+# setup GUI (dwm) by Denshi
+https://www.youtube.com/watch?v=cNsdzIJleu8&t
+
