@@ -13,6 +13,13 @@ wpa_cli
 > save_config
 > quit
 
+# OR
+
+net-setup INTERFACE
+dhcpcd INTERFACE
+
+# Partitioning:
+
 gdisk /dev/sda
 	o
 	n,1, ,+128M, ,
@@ -41,7 +48,7 @@ cd /mnt/gentoo
 wget ...	# OpenRC
 tar xpf stage3*
 
-cd /mnt/gentoo && cp /etc/resolv.conf etc && arch-chroot -
+cd /mnt/gentoo && cp /etc/resolv.conf etc && arch-chroot .
 
 emerge-webrsync
 emerge -avuDN @world
