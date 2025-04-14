@@ -152,7 +152,7 @@ https://www.youtube.com/watch?v=cNsdzIJleu8&t
 
 eselect profile list
 	search for "amd/VERSION/desktop (stable)"
-sudo eselect profile X
+sudo eselect profile set X
 sudo vim /etc/portage/make.conf
 	USE="-gnome -kde -bluetooth -cups -dvd -dvdr -cdr"
 sudo emerge -vq rust-bin
