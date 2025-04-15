@@ -156,4 +156,4 @@ sudo eselect profile set X
 sudo vim /etc/portage/make.conf
 	USE="-gnome -kde -bluetooth -cups -dvd -dvdr -cdr"
 sudo emerge -vq rust-bin
-sudo emerge -avquDN @world xorg-server dwm elogind net-misc/networkmanager sys-apps/dbus
+sudo emerge -avquDN @world xorg-server dwm elogind net-misc/networkmanager sys-apps/dbus libX11 libXinerama xterm xclock
