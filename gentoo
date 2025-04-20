@@ -104,6 +104,7 @@ dispatch-conf
 	r
 	u
 emerge -anvq sys-boot/os-prober
+emerge -avq sys-fs/ntfs3g
 
 vim /etc/default/grub
 	GRUB_DISABLE_OS_PROBER=false
