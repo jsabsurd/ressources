@@ -1,5 +1,5 @@
 sudo pacman -Syu
-sudo pacman -S firefox git vlc alsamixer bluetui obsidian kleopatra keepassxc dosfstools curl wget feh zsh ttf-inconsolata xorg-server xorg-xinit libxft libxinerama vim arandr
+sudo pacman -S firefox git vlc alsamixer bluetui obsidian kleopatra keepassxc dosfstools curl wget feh zsh ttf-inconsolata xorg-server xorg-xinit libxft libxinerama vim arandr kitty JetBrainsMono Nerd Fonts
 cd ~
 sudo pacman -S --needed base-devel git
 git clone https://aur.archlinux.org/yay.git
@@ -7,7 +7,7 @@ cd yay
 makepkg -si
 cd ~
 
-clone dwm/st/dmenu
+clone dwm/st/dmenu	(dwm patches: fullgaps/barpadding/statuspadding)
 make x3
 
 cd ~
@@ -31,3 +31,6 @@ git config files adden
 usb stick:
 	Datenbank
 	obsidian
+	wallpaper dir
+	kitty config
+	.zshrc
