@@ -1,0 +1,83 @@
+loadkeys de-latin1
+iwctl
+	Station wlan0 get-networks
+	Station wlan0 connect …
+(dhcpcd)
+
+timedateclt
+cfdisk /dev/sda
+	/boot (esp) 1GB
+	[SWAP] (swap) 4GB
+	/	(root)	rest
+mkfs.ext4 /dev/root
+mkswap /dev/swap
+mkfs.fat -F 32 /dev/esp
+
+mount /dev/root /mnt
+mount --mkdir /dev/esp /mnt/boot
+swapon /dev/swap
+
+pacstrap -K /mnt base Linux linux-firmware vim
+	+ amd-ucode/intel-ucode, sof-firmware, iwd, dhcpcd, (networkmanager, wpa_supplicant)
+
+genfstab -U /mnt >> /mnt/etc/fstab
+arch-chroot /mnt
+
+ln -sf /usr/share/zoneinfo/Europe/Berlin /etc/localtime
+hwclock --systohc
+
+vim /etc/locale.gen
+	de_DE.UTF-8 UTF-8
+locale-gen
+
+vim /etc/locale.conf
+	LANG=de_DE.UTF-8
+vim /etc/vconsole.conf
+	KEYMAP=de-latin1
+vim /etc/hostname
+	hostname
+
+mkinitcpio -P
+
+passwd
+useradd -g users -G wheel,audio,network -m Johnny
+passwd Johnny
+
+pacman -S sudo
+sudo visudo
+	uncomment wheel
+
+pacman -S grub efibootmgr
+grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB
+grub-mkconfig -o /boot/grub/grub.cfg
+
+exit
+umount -R /mnt
+reboot
+
+pacman -Syyuu
+pacman -S Firefox git VLC Obsidian kleopatra keepassxc dosfstools curl wget make feh zsh ttf-inconsolata xorg-server xorg-xinit libxft libxinerama arandr kitty alacritty ttf-jetbrains-mono-nerd xterm fastfetch (setxkbmap)
+sudo pacman -S --needed base-devel git
+
+git Clone https://aur.archlinux.org/yay.git
+cd yay
+makepkg -si
+
+yay -S walrs
+
+USB-Stick:
+	dwm/st/dmenu
+	oh-my-zsh
+	.zshrc
+	wallpaper
+	Datenbank
+
+source .zshrc
+
+vim .xinitrc
+	setxkbmap de && feh --bg-scale ~/wallpaper/1.png && exec dwm
+
+Clone LibraryOA
+
+(sudo systemctl enable iwd/dhcpcd)
+(sudo chmod 777 /usr/bin/Xorg (oder 4711))
