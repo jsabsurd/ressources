@@ -56,7 +56,7 @@ umount -R /mnt
 reboot
 
 pacman -Syyuu
-pacman -S Firefox git VLC Obsidian kleopatra keepassxc dosfstools curl wget make feh zsh ttf-inconsolata xorg-server xorg-xinit libxft libxinerama arandr kitty alacritty ttf-jetbrains-mono-nerd xterm fastfetch (setxkbmap)
+pacman -S Firefox brightnessctl git VLC Obsidian kleopatra keepassxc dosfstools curl wget make feh zsh ttf-inconsolata xorg-server xorg-xinit libxft libxinerama arandr kitty alacritty ttf-jetbrains-mono-nerd xterm fastfetch (setxkbmap)
 sudo pacman -S --needed base-devel git
 
 git Clone https://aur.archlinux.org/yay.git
@@ -65,19 +65,23 @@ makepkg -si
 
 yay -S walrs
 
-USB-Stick:
-	dwm/st/dmenu
-	oh-my-zsh
-	.zshrc
-	wallpaper
-	Datenbank
+Datenbank
 
 source .zshrc
 
 vim .xinitrc
 	setxkbmap de && feh --bg-scale ~/wallpaper/1.png && exec dwm
-
+clone st/dmenu
 Clone LibraryOA
+clone ressources
+	kitty
+	dwm.bak
+	.zshrc
+	wallpaper
+	(.shell.pre-oh-my-zsh)
+	(.vim)
 
-(sudo systemctl enable iwd/dhcpcd)
+install oh-my-zsh plugins
+
+sudo systemctl enable iwd/dhcpcd
 (sudo chmod 777 /usr/bin/Xorg (oder 4711))
