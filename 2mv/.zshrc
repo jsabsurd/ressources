@@ -8,8 +8,8 @@ export ZSH="$HOME/.oh-my-zsh"
 # load a random theme each time Oh My Zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="random"
-
+ZSH_THEME="jonathan"
+# random, johnathan, xiong-chiamiov
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
 # a theme from this variable instead of looking in $ZSH/themes/
@@ -106,11 +106,15 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+alias pls="sudo !!"
 alias rat="sudo pacman -S"
 alias up="sudo pacman -Syu"
 alias upf="sudo pacman -Syyuu"
 alias uy="yay -Syu"
 alias uyf="yay -Syyuu"
+alias crb1="paccache -rk1"
+alias cru="paccache -ruk0"
+alias aggrrc="sudo pacman -Scc"
 alias deutsch="setxkbmap de-latin1"
 alias hell100="brightnessctl set 100%"
 alias helli="brightnessctl s 10%+"
