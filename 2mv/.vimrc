@@ -1,6 +1,10 @@
-"nnoremap <SPACE> :
+let mapleader = "\<Space>"
 
 set encoding=UTF-8
+
+set tabstop=4	" set tabs to appear 4 chars wide
+set softtabstop=0 noexpandtab	" use actual tab chars (default)
+set shiftwidth=4	" for use of tab chars for indentation
 
 set signcolumn=yes
 set notimeout
@@ -12,6 +16,13 @@ autocmd VimEnter * NERDTree
 
 autocmd! User vim-which-key call which_key#register('<SPACE>', 'g:which_key_map')
 
+
+let g:vimwiki_list = [{'path': '~/vimwiki/',
+                      \ 'syntax': 'markdown', 'ext': 'md'}]
+
+let g:vimwiki_folding = 'syntax' "expr, syntax, list, custom
+
+let g:vimwiki_global_ext = 0
 " colorscheme desert
 "colo seoul256
 
